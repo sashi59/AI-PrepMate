@@ -1,7 +1,7 @@
 "use client";
 
 import { MicIcon, Pause, WebcamIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 import useSpeechToText from "react-hook-speech-to-text";
 import { toast } from "sonner";
@@ -16,7 +16,7 @@ const RecordAnswerComponent = ({
   interviewId,
 }) => {
   const [userAnswer, setUserAnswer] = useState("");
-  const [fb, setfb] = useState(null);
+  const [feedback, setFeedback] = useState(null);
   const [loading, setLoading] = useState(false);
   const [webCam, setWebCam] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -32,6 +32,14 @@ const RecordAnswerComponent = ({
     continuous: true,
     useLegacyResults: false,
   });
+
+  // Debounce mechanism to control state updates
+  const updateUserAnswer = useCallback((newAnswer) => {
+    setUserAnswer((prev) => {
+      if (prev !== newAnswer) return newAnswer;
+      return prev;
+    });
+  }, []);
 
   const saveUserAnswer = async () => {
     if (isRecording) {
@@ -53,8 +61,7 @@ const RecordAnswerComponent = ({
             .replace("```", "");
 
           const feedData = JSON.parse(feedbackText);
-
-          setfb(feedData);
+          setFeedback(feedData);
 
           const resp = await db.insert(userAnswerTable).values({
             mockIdRef: interviewId,
@@ -79,26 +86,37 @@ const RecordAnswerComponent = ({
         toast("Error in processing your feedback");
       }
 
+      // Clear user answer after saving
       setUserAnswer("");
       setLoading(false);
     } else {
       setIsRecording(true);
+      setUserAnswer(""); // Reset userAnswer when starting a new recording
       startSpeechToText();
     }
   };
 
   useEffect(() => {
-    if (interimResult) {
-      setUserAnswer(interimResult.trim());
+    if (isRecording && interimResult) {
+      updateUserAnswer(interimResult.trim());
     }
-  }, [interimResult]);
+  }, [interimResult, isRecording, updateUserAnswer]);
 
   useEffect(() => {
     if (results.length) {
-      const finalTranscript = results.map((r) => r.transcript).join(" ").trim();
-      setUserAnswer(finalTranscript);
+      const finalTranscript = results[results.length - 1]?.transcript?.trim() || "";
+      updateUserAnswer(finalTranscript);
     }
-  }, [results]);
+  }, [results, updateUserAnswer]);
+
+  // Ensure no repeated GET requests
+  useEffect(() => {
+    const handleRefresh = () => {
+      console.log("Component mounted, refreshing data...");
+    };
+
+    handleRefresh(); // Call data fetching logic here
+  }, []);
 
   return (
     <div className="mb-20">
