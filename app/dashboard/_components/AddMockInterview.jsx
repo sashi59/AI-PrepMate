@@ -83,12 +83,12 @@ const AddMockInterview = () => {
                       Year of Experinece
                     </h2>
                   </div>
-                  <div className="flex flex-col mt-3 text-left dark:text-white">
-                    <label className="text-sm text-black">
+                  <div className="flex flex-col mt-3 text-left ">
+                    <label className="text-sm text-black dark:text-white">
                       Job Position/ Role Name
                     </label>
                     <input
-                      className="border rounded-lg bg-secondary p-3 dark:text-white"
+                      className="border rounded-lg bg-secondary p-3 "
                       value={jobPosition}
                       onChange={(e) => setJobPosition(e.target.value)}
                       type="text"
@@ -96,8 +96,8 @@ const AddMockInterview = () => {
                       required
                     />
                   </div>
-                  <div className="flex flex-col mt-3  text-left dark:text-white">
-                    <label className=" text-black">
+                  <div className="flex flex-col mt-3  text-left ">
+                    <label className=" text-black dark:text-white">
                       Job Description/ Tech Stack
                     </label>
                     <textarea
@@ -110,7 +110,7 @@ const AddMockInterview = () => {
                     />
                   </div>
                   <div className="flex flex-col mt-3  text-left">
-                    <label className="text-black ">Job Experience</label>
+                    <label className="text-black dark:text-white">Job Experience</label>
                     <input
                       className="border rounded-lg bg-secondary p-3 w-full"
                       value={jobExperience}

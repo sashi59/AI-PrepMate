@@ -34,7 +34,7 @@ const QuestionComponent = ({ mockInterviewQuestion, activeQuestion, setActiveQue
           </h2>
         </div>
         <Volume2
-          className="mt-10 cursor-pointer mb-5"
+          className="mt-10 cursor-pointer mb-5 "
           onClick={() =>
             textToSpeech(mockInterviewQuestion[activeQuestion]?.Question)
           }

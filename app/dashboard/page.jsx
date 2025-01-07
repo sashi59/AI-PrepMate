@@ -1,8 +1,16 @@
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 import AddMockInterview from './_components/AddMockInterview'
 import InterviewList from './_components/InterviewList'
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 const Dashboard = () => {
+  const user = useUser();
+  const router = useRouter();
+  useEffect(()=>{
+    router.refresh();
+  },[user])
   return (
     <div className='p-10'>
       
