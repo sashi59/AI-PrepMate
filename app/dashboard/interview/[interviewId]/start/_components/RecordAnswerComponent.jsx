@@ -16,7 +16,7 @@ const RecordAnswerComponent = ({
   interviewId,
 }) => {
   const [userAnswer, setUserAnswer] = useState("");
-  const [fb, setfb] = useState("");
+  const [fb, setfb] = useState(null);
   const [loading, setLoading] = useState(false);
   const [webCam, setWebCam] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -40,33 +40,39 @@ const RecordAnswerComponent = ({
       setLoading(true);
 
       try {
-        const feedbackPrompt = `Question: ${mockInterviewQuestion[activeQuestion]?.Question}, Answer:${userAnswer}
-        , Depends on question and user answer for given interview question, please give us rating for answer and feedback as area 
-        of improvement  if any, in just 3 to 5 lines to improve it in JSON format with rating field and feedback field.`;
+        const feedbackPrompt = `Question: ${
+          mockInterviewQuestion[activeQuestion]?.Question
+        }, Answer:${userAnswer}. Provide a rating and feedback in JSON format with "rating" and "feedback" fields.`;
 
         const result = await chatSession.sendMessage(feedbackPrompt);
-        const feedbackJsonForm = result.response
-          .text()
-          .replace("```json", "")
-          .replace("```", "");
-        const feedData = JSON.parse(feedbackJsonForm);
 
-        setfb(feedData);
+        if (result && result.response) {
+          const feedbackText = result.response
+            .text()
+            .replace("```json", "")
+            .replace("```", "");
 
-        const resp = await db.insert(userAnswerTable).values({
-          mockIdRef: interviewId,
-          correctAns: mockInterviewQuestion[activeQuestion]?.Answer,
-          feedback: feedData?.feedback,
-          rating: feedData?.rating,
-          question: mockInterviewQuestion[activeQuestion]?.Question,
-          userAns: userAnswer,
-          userEmail: user?.primaryEmailAddress?.emailAddress,
-        });
+          const feedData = JSON.parse(feedbackText);
 
-        if (resp) {
-          toast("Your Answer Saved Successfully");
+          setfb(feedData);
+
+          const resp = await db.insert(userAnswerTable).values({
+            mockIdRef: interviewId,
+            correctAns: mockInterviewQuestion[activeQuestion]?.Answer,
+            feedback: feedData?.feedback,
+            rating: feedData?.rating,
+            question: mockInterviewQuestion[activeQuestion]?.Question,
+            userAns: userAnswer,
+            userEmail: user?.primaryEmailAddress?.emailAddress,
+          });
+
+          if (resp) {
+            toast("Your Answer Saved Successfully");
+          } else {
+            toast("Error in saving your answer");
+          }
         } else {
-          toast("Error in saving your answer");
+          toast("Error: Feedback generation failed");
         }
       } catch (err) {
         console.error("Error saving user answer:", err);
@@ -83,18 +89,21 @@ const RecordAnswerComponent = ({
 
   useEffect(() => {
     if (interimResult) {
-      setUserAnswer((prev) => `${prev} ${interimResult}`);
+      setUserAnswer(interimResult.trim());
     }
   }, [interimResult]);
 
   useEffect(() => {
-    results.forEach((r) => setUserAnswer((prev) => `${prev} ${r.transcript}`));
+    if (results.length) {
+      const finalTranscript = results.map((r) => r.transcript).join(" ").trim();
+      setUserAnswer(finalTranscript);
+    }
   }, [results]);
 
   return (
     <div className="mb-20">
-      <div className="mt-10 flex flex-col justify-center items-center ">
-        <h1 className="text-bold">Enable Webcam to Start Recording</h1>
+      <div className="mt-10 flex flex-col justify-center items-center">
+        <h1 className="font-bold">Enable Webcam to Start Recording</h1>
         {webCam ? (
           <div>
             <Webcam
@@ -105,7 +114,7 @@ const RecordAnswerComponent = ({
             />
           </div>
         ) : (
-          <WebcamIcon className=" h-56 md:h-96 w-full bg-gray-300 text-gray-800 p-20 m-4 rounded-lg" />
+          <WebcamIcon className="h-56 md:h-96 w-full bg-gray-300 text-gray-800 p-20 m-4 rounded-lg" />
         )}
       </div>
 
@@ -118,7 +127,7 @@ const RecordAnswerComponent = ({
         </button>
         <button
           onClick={saveUserAnswer}
-          disabled={!webCam}
+          disabled={!webCam || loading}
           className={`${
             isRecording ? "bg-red-500" : "bg-green-400"
           } ${webCam ? "" : "cursor-not-allowed"} text-white w-1/2 px-5 py-2 rounded-lg hover:scale-105 shadow-md mt-3 text-sm`}
@@ -130,14 +139,8 @@ const RecordAnswerComponent = ({
             </div>
           ) : (
             <div className="flex gap-1 justify-center items-center">
-              {loading ? (
-                "Loading..."
-              ) : (
-                <>
-                  <MicIcon />
-                  Start Recording
-                </>
-              )}
+              {loading ? "Processing..." : <MicIcon />}
+              Start Recording
             </div>
           )}
         </button>
