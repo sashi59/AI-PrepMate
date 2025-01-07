@@ -1,7 +1,7 @@
 import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
 
-const QuestionComponent = ({ mockInterviewQuestion, activeQuestion }) => {
+const QuestionComponent = ({ mockInterviewQuestion, activeQuestion, setActiveQuestion }) => {
   const textToSpeech = (text) => {
     if ("speechSynthesis" in window) {
       const speech = new SpeechSynthesisUtterance(text); // Use SpeechSynthesisUtterance
@@ -10,6 +10,8 @@ const QuestionComponent = ({ mockInterviewQuestion, activeQuestion }) => {
       alert("Your browser does not support Speech Synthesis");
     }
   };
+
+  
 
   return (
     mockInterviewQuestion && (
@@ -20,7 +22,7 @@ const QuestionComponent = ({ mockInterviewQuestion, activeQuestion }) => {
               <h2
                 key={idx}
                 className={` ${activeQuestion === idx ? "bg-blue-500 text-white" : "bg-secondary"} p-2 rounded-lg cursor-pointer text-center text-sm `}
-                  
+                onClick={()=> setActiveQuestion(idx)}
               >
                 Question #{idx + 1}
               </h2>

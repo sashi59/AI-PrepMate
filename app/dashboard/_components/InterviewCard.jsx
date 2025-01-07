@@ -42,7 +42,7 @@ const InterviewCard = ({ idx, interviewList }) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex justify-between gap-5">
-            <Button onClick={navigateToStart} className="w-1/2 bg-secondary text-black hover:bg-gray-300">Start Interview</Button>
+            <Button onClick={navigateToStart} className="w-1/2 bg-secondary text-black dark:text-white px-2 hover:bg-gray-300">Start Interview</Button>
             <Button  onClick={navigateToFeedback} className="w-1/2">Feedback</Button>
 
         </CardContent>

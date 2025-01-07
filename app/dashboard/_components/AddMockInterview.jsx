@@ -62,7 +62,7 @@ const AddMockInterview = () => {
   };
   return (
     <div className="w-1/3">
-      <div className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all">
+      <div className="p-10  border rounded-lg bg-secondary w-52 md:w-96 hover:scale-105 hover:shadow-md cursor-pointer transition-all">
         <h2 className="text-lg text-center" onClick={() => setOpenDialog(true)}>
           + Add New{" "}
         </h2>
@@ -71,19 +71,19 @@ const AddMockInterview = () => {
         {/* <DialogTrigger></DialogTrigger> */}
         <DialogContent className="p-10 max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl ">
+            <DialogTitle className="text-2xl text-left ">
               Tell us more about your Job Interviewing
             </DialogTitle>
             <DialogDescription>
               <form onSubmit={onsubmit}>
                 <div>
                   <div>
-                    <h2 className="text-black text-sm">
+                    <h2 className="text-black text-sm text-left">
                       Add Details about your Job position, Job Description and
                       Year of Experinece
                     </h2>
                   </div>
-                  <div className="flex flex-col mt-3 ">
+                  <div className="flex flex-col mt-3 text-left">
                     <label className="text-sm text-black">
                       Job Position/ Role Name
                     </label>
@@ -96,7 +96,7 @@ const AddMockInterview = () => {
                       required
                     />
                   </div>
-                  <div className="flex flex-col mt-3">
+                  <div className="flex flex-col mt-3  text-left">
                     <label className=" text-black">
                       Job Description/ Tech Stack
                     </label>
@@ -109,7 +109,7 @@ const AddMockInterview = () => {
                       required
                     />
                   </div>
-                  <div className="flex flex-col mt-3">
+                  <div className="flex flex-col mt-3  text-left">
                     <label className="text-black ">Job Experience</label>
                     <input
                       className="border rounded-lg bg-secondary p-3 w-full"

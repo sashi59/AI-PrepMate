@@ -102,7 +102,7 @@ const RecordAnswerComponent = ({
             />
           </div>
         ) : (
-          <WebcamIcon className="h-96 w-full bg-gray-300 text-gray-800 p-20 m-4 rounded-lg" />
+          <WebcamIcon className=" h-56 md:h-96 w-full bg-gray-300 text-gray-800 p-20 m-4 rounded-lg" />
         )}
       </div>
 

@@ -58,23 +58,23 @@ const InterviewPage = ({ params }) => {
           onUserMediaError={() => setWebCam(false)}
         />
       ) : (
-        <WebcamIcon className="h-56 w-1/3 bg-gray-300 text-gray-800 p-10 m-4" />
+        <WebcamIcon className="h-56  w-full md:w-1/3 bg-gray-300 text-gray-800 rounded-lg p-10 m-4  md:m-4" />
       )}
       <div>
         <button 
           onClick={() => setWebCam(!webCam)}
-          className="mt-1 p-3 border rounded-lg hover:shadow-md bg-slate-50"
+          className="mt-1 p-3 border rounded-lg hover:shadow-md bg-slate-50 dark:text-black"
         >
           {webCam ? "Disable Webcam and Microphone":"Enable Webcam and Microphone"}
         </button>
       </div>
 
-      <div className="mt-8 border p-5 rounded-md w-1/2">
+      <div className="mt-8 border p-5 rounded-md flex flex-col gap-5 w-full md:w-1/2">
         <h2><strong>Job Position/ Role Name: </strong>{interviewData.jobPosition}</h2>
         <h2><strong>Job Description/ Tech Stack: </strong>{interviewData.jobDescription}</h2>
         <h2><strong>Job Experience: </strong>{interviewData.jobExperience} years</h2>
       </div>
-      <button className="bg-primary p-3 mt-5 w-1/2 hover:shadow-sm text-white rounded-lg" onClick={handelStartInterview}>Let's Start Interview</button>
+      <button className="bg-primary p-3 mt-5 w-1/2 hover:shadow-sm text-white rounded-lg mb-10" onClick={handelStartInterview}>Let's Start Interview</button>
     </div>
   );
 };

@@ -65,7 +65,7 @@ const FeedbackPage = ({ params: paramsPromise }) => {
   return (
     <div className="p-10">
       <h1 className="text-green-400 font-bold text-3xl">Congratulations!</h1>
-      <h2 className="text-gray-900 font-bold text-2xl">
+      <h2 className="text-gray-900 font-bold text-2xl dark:text-white">
         Here is your Interview Feedback
       </h2>
       <h2 className="text-blue-500 text-xl font-bold mt-5 mb-3">
@@ -73,7 +73,7 @@ const FeedbackPage = ({ params: paramsPromise }) => {
       </h2>
       <Button onClick={() => router.replace("/dashboard")}>Go to Home</Button>
 
-      <h3 className="text-sm text-gray-400 my-5">
+      <h3 className="text-sm text-gray-400 my-5 dark:text-gray-200">
         Here below, your interview questions with correct answers, your answers,
         and feedback for improvement are given.
       </h3>
@@ -82,12 +82,12 @@ const FeedbackPage = ({ params: paramsPromise }) => {
         {feedback && feedback.length > 0 ? (
           feedback.map((feed, idx) => (
             <Collapsible key={idx}>
-              <CollapsibleTrigger className="w-full flex justify-between pr-5 text-left bg-gray-100 py-3 border pl-3 rounded-lg mb-4">
-                {feed?.question} <p><ArrowDown /></p>
+              <CollapsibleTrigger className="w-full flex justify-between items-center pr-5 text-left bg-gray-100 py-3 border pl-3 rounded-lg mb-4 dark:text-black">
+                {feed?.question} <p><ArrowDown  className="ml-1" /></p>
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="flex flex-col gap-1">
-                  <h2 className="w-full text-left text-xs text-red-700 border py-3 pl-3 rounded-lg pr-3">
+                  <h2 className="w-full text-left text-xs text-red-700 border py-3 pl-3 rounded-lg pr-3 dark:bg-red-100">
                     <strong>Result: </strong>
                     {feed?.rating}
                   </h2>
@@ -105,7 +105,7 @@ const FeedbackPage = ({ params: paramsPromise }) => {
             </Collapsible>
           ))
         ) : (
-          <p>No feedback available.</p>
+          <p>OOPS!! No feedback available.</p>
         )}
       </div>
     </div>

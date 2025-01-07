@@ -50,33 +50,36 @@ const InterviewStartPage = ({ params }) => {
   return (
     <div>
       <div className=" grid md:grid-cols-2 gap-10 mb-15">
+        {/* Record Answer */}
+        <div>
+          <RecordAnswerComponent
+            mockInterviewQuestion={mockInterviewQuestion}
+            activeQuestion={activeQuestion}
+            interviewId={interviewId}
+          />
+          <div className="flex justify-start gap-5" style={{marginTop:"-3rem"}}>
+            {activeQuestion !== 0 && (
+              <Button className="w-1/2 dark:text-white" onClick={() => setActiveQuestion(activeQuestion - 1)}>
+                Previous Question
+              </Button>
+            )}
+            {activeQuestion !== mockInterviewQuestion?.length - 1 && (
+              <Button  className="w-1/2 dark:text-white" onClick={() => setActiveQuestion(activeQuestion + 1)}>
+                Next Question
+              </Button>
+            )}
+            {activeQuestion === mockInterviewQuestion?.length - 1 && (
+              <Button className="w-1/2 dark:text-white" onClick={endInterview}>End Interview</Button>
+            )}
+          </div>
+        </div>
+
         {/* Question */}
         <QuestionComponent
           mockInterviewQuestion={mockInterviewQuestion}
           activeQuestion={activeQuestion}
+          setActiveQuestion={setActiveQuestion}
         />
-
-        {/* Record Answer */}
-        <RecordAnswerComponent
-          mockInterviewQuestion={mockInterviewQuestion}
-          activeQuestion={activeQuestion}
-          interviewId={interviewId}
-        />
-      </div>
-      <div className="flex justify-end gap-5">
-        {activeQuestion !== 0 && (
-          <Button onClick={() => setActiveQuestion(activeQuestion - 1)}>
-            Previous Question
-          </Button>
-        )}
-        {activeQuestion !== mockInterviewQuestion?.length - 1 && (
-          <Button onClick={() => setActiveQuestion(activeQuestion + 1)}>
-            Next Question
-          </Button>
-        )}
-        {activeQuestion === mockInterviewQuestion?.length-1 && (
-          <Button onClick={endInterview} >End Interview</Button>
-        )}
       </div>
     </div>
   );
