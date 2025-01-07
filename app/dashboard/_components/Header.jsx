@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const Header = () => {
   const pathname = usePathname();
   const [nav, setNav] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const toggleNav = () => {
     setNav(!nav);
@@ -49,16 +49,16 @@ const Header = () => {
       </div>
 
       <ul className="hidden md:flex items-center  gap-3 md:gap-5">
-        <li onClick={()=>router.push("/dashboard")}
+        <li
+          onClick={() => router.push("/dashboard")}
           className={`${
-          
             pathname === `/dashboard` ? "text-primary font-bold" : ""
           } hover:text-primary hover:font-bold cursor-pointer`}
         >
           Dashboard
         </li>
         <li
-        onClick={()=>router.push("/question")}
+          onClick={() => router.push("/question")}
           className={`${
             pathname === "/dashboard/questions" ? "text-primary font-bold" : ""
           } hover:text-primary hover:font-bold cursor-pointer`}
@@ -66,7 +66,7 @@ const Header = () => {
           Questions
         </li>
         <li
-        onClick={()=>router.push("/premium")}
+          onClick={() => router.push("/premium")}
           className={`${
             pathname === "/dashboard/premium" ? "text-primary font-bold" : ""
           } hover:text-primary hover:font-bold cursor-pointer`}
@@ -74,7 +74,7 @@ const Header = () => {
           Premium
         </li>
         <li
-        onClick={()=>router.push("/how")}
+          onClick={() => router.push("/how")}
           className={`${
             pathname === "/dashboard/how" ? "text-primary font-bold" : ""
           } hover:text-primary hover:font-bold cursor-pointer`}
@@ -85,7 +85,11 @@ const Header = () => {
       <div className="md:hidden flex gap-3 justify-center items-center">
         <ThemeToggle />
         <div onClick={toggleNav} className="z-50">
-          {nav ? <XIcon size={30} className="text-black" /> : <MenuIcon size={30} />}
+          {nav ? (
+            <XIcon size={30} className="text-black" />
+          ) : (
+            <MenuIcon size={30} />
+          )}
         </div>
       </div>
 
@@ -101,8 +105,12 @@ const Header = () => {
         variants={menuVariants}
         className="fixed left-0 top-0 w-full min-h-screen z-40 bg-secondary text-black"
       >
-        <ul className="font-semibold text-2xl space-y-8 mt-24 text-left pl-7">
-          <li className="w-full border-blue-500 p-2 rounded-sm ">
+        <div className="mt-10 pl-7 flex flex-col gap-2 ">
+          <UserButton height={100}/>
+          <div className="text-black text-3xl text-bold">{user?.user?.firstName}</div>
+        </div>
+        <ul className="font-semibold text-2xl space-y-8 mt-5 text-left pl-7">
+          <li className="w-full border-blue-500  rounded-sm ">
             <Link
               href="/dashboard" // Corrected to 'href'
               onClick={closeNav}
@@ -111,7 +119,7 @@ const Header = () => {
               Dashboard
             </Link>
           </li>
-          <li className="w-full border-blue-500 p-2 rounded-sm  ">
+          <li className="w-full border-blue-500  rounded-sm  ">
             <Link
               href="/question" // Corrected to 'href'
               onClick={closeNav}
@@ -120,7 +128,7 @@ const Header = () => {
               Question
             </Link>
           </li>
-          <li className="w-full border-blue-500 p-2 rounded-sm  ">
+          <li className="w-full border-blue-500  rounded-sm  ">
             <Link
               href="/contact" // Corrected to 'href'
               onClick={closeNav}
@@ -129,7 +137,7 @@ const Header = () => {
               Premium
             </Link>
           </li>
-          <li className="w-full border-blue-500 p-2 rounded-sm  ">
+          <li className="w-full border-blue-500 rounded-sm  ">
             <Link
               href="/contact" // Corrected to 'href'
               onClick={closeNav}
