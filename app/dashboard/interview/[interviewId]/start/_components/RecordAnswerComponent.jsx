@@ -98,7 +98,7 @@ const RecordAnswerComponent = ({
               className="rounded-lg w-full"
               mirrored={true}
               onUserMedia={() => setWebCam(true)}
-              onUserMediaError={() => setWebCam(false)}
+              
             />
           </div>
         ) : (

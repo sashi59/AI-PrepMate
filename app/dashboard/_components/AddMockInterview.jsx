@@ -32,7 +32,7 @@ const AddMockInterview = () => {
     e.preventDefault();
     console.log("User Details: ", jobPosition, jobDescription, jobExperience);
     const InputPrompt = `Job Position: ${jobPosition}, Job Description / Tech Stack : ${jobDescription},
-    Years of Experience : ${jobExperience}, Depends on this given information please give me
+    Years of Experience : ${jobExperience}, if 0 years of experience ask basic questions, Depends on this given information please give me
     ${process.env.NEXT_PUBLIC_NO_QUESTIONS} interview questions with answers in JSON Format.
     Give Question and Answered as field in JSON.`;
 
@@ -78,17 +78,17 @@ const AddMockInterview = () => {
               <form onSubmit={onsubmit}>
                 <div>
                   <div>
-                    <h2 className="text-black text-sm text-left">
+                    <h2 className="text-black text-sm text-left dark:text-gray-200">
                       Add Details about your Job position, Job Description and
                       Year of Experinece
                     </h2>
                   </div>
-                  <div className="flex flex-col mt-3 text-left">
+                  <div className="flex flex-col mt-3 text-left dark:text-white">
                     <label className="text-sm text-black">
                       Job Position/ Role Name
                     </label>
                     <input
-                      className="border rounded-lg bg-secondary p-3"
+                      className="border rounded-lg bg-secondary p-3 dark:text-white"
                       value={jobPosition}
                       onChange={(e) => setJobPosition(e.target.value)}
                       type="text"
@@ -96,7 +96,7 @@ const AddMockInterview = () => {
                       required
                     />
                   </div>
-                  <div className="flex flex-col mt-3  text-left">
+                  <div className="flex flex-col mt-3  text-left dark:text-white">
                     <label className=" text-black">
                       Job Description/ Tech Stack
                     </label>
