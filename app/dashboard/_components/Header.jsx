@@ -39,7 +39,7 @@ const Header = () => {
     },
   };
 
-  // console.log(pathname)
+  // //console.log(pathname)
   return (
     <div className="flex items-center justify-between py-4 px-8 md:py-5 md:px-10 shadow-md bg-secondary">
       {/* <Image src={"./logoipsum-338.svg"} width={70} height={60} alt="Logo"></Image>

@@ -56,9 +56,9 @@ const FeedbackPage = ({ params: paramsPromise }) => {
 
       setAverageRating(average);
 
-      console.log("feedback", result);
+      //console.log("feedback", result);
     } catch (error) {
-      console.error("Error fetching feedback:", error);
+      //console.error("Error fetching feedback:", error);
     }
   };
 

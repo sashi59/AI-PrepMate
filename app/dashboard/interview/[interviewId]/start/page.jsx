@@ -43,9 +43,9 @@ const InterviewStartPage = ({ params }) => {
     setInterviewData(result[0]?.mockId);
     setMockInterviewQuestion(JSON.parse(result[0].jsonMockResponse));
 
-    // console.log("result", mockInterviewQuestion);
-    // console.log("interviewId", interviewId);
-    // console.log("interviewData", interviewData);
+    // //console.log("result", mockInterviewQuestion);
+    // //console.log("interviewId", interviewId);
+    // //console.log("interviewData", interviewData);
   };
   return (
     <div>

@@ -24,7 +24,7 @@ const InterviewList = () => {
       )
       .orderBy(desc(MockInterview.id));
 
-    // console.log("result", result);
+    // //console.log("result", result);
     setInterviewList(result);
     setLoading(false);
   };

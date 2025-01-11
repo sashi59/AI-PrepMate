@@ -30,7 +30,7 @@ const AddMockInterview = () => {
   const onsubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    console.log("User Details: ", jobPosition, jobDescription, jobExperience);
+    // //console.log("User Details: ", jobPosition, jobDescription, jobExperience);
     const InputPrompt = `Job Position: ${jobPosition}, Job Description / Tech Stack : ${jobDescription},
     Years of Experience : ${jobExperience}, if 0 years of experience ask basic questions, Depends on this given information please give me
     ${process.env.NEXT_PUBLIC_NO_QUESTIONS} interview questions with answers in JSON Format.
@@ -38,7 +38,7 @@ const AddMockInterview = () => {
 
     const result = await chatSession.sendMessage(InputPrompt);
     const mockJsonForm = (result.response.text()).replace("```json", "").replace("```", "")
-    console.log("mockParseJsonForm", JSON.parse(mockJsonForm));
+    //console.log("mockParseJsonForm", JSON.parse(mockJsonForm));
     if(mockJsonForm){
       const resp = await db.insert(MockInterview).values({
         mockId: uuid(),
@@ -49,14 +49,14 @@ const AddMockInterview = () => {
         jsonMockResponse: mockJsonForm,
       }).returning({mockId: MockInterview.mockId})
   
-      console.log("Inserted Id:", resp)
+      //console.log("Inserted Id:", resp)
       if(resp){
         setOpenDialog(false);
         router.push(`/dashboard/interview/${resp[0]?.mockId}`) // Navigate to Questions page with mockId
 
       }
     }else{
-      console.log("Error in AddMockInterview");
+      //console.log("Error in AddMockInterview");
     }
     setLoading(false);
   };

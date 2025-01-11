@@ -82,7 +82,7 @@ const RecordAnswerComponent = ({
           toast("Error: Feedback generation failed");
         }
       } catch (err) {
-        console.error("Error saving user answer:", err);
+        //console.error("Error saving user answer:", err);
         toast("Error in processing your feedback");
       }
 
@@ -112,7 +112,7 @@ const RecordAnswerComponent = ({
   // Ensure no repeated GET requests
   useEffect(() => {
     const handleRefresh = () => {
-      console.log("Component mounted, refreshing data...");
+      //console.log("Component mounted, refreshing data...");
     };
 
     handleRefresh(); // Call data fetching logic here

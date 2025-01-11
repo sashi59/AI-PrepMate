@@ -38,10 +38,10 @@ const InterviewPage = ({ params }) => {
         .select()
         .from(MockInterview)
         .where(eq(MockInterview.mockId, interviewId));
-      console.log(result);
+      // //console.log(result);
       setInterviewData(result[0]);
     } catch (error) {
-      console.error("Error fetching interview details:", error);
+      //console.error("Error fetching interview details:", error);
     }
   };
 
