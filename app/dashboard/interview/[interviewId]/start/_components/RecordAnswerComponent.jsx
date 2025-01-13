@@ -50,7 +50,7 @@ const RecordAnswerComponent = ({
       try {
         const feedbackPrompt = `Question: ${
           mockInterviewQuestion[activeQuestion]?.Question
-        }, Answer:${userAnswer}. Provide a rating and feedback in JSON format with "rating" and "feedback" fields.`;
+        }, Answer:${userAnswer}. Provide a rating from 1 to 10 and feedback in JSON format with "rating" and "feedback" fields.`;
 
         const result = await chatSession.sendMessage(feedbackPrompt);
 
